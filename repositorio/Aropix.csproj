@@ -1,0 +1,73 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Explicit legacy toolchain: same installed Framework compiler and references as compilar.cmd. -->
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <AssemblyName>PixelArt</AssemblyName>
+    <ApplicationIcon>assets\aropix.ico</ApplicationIcon>
+    <OutputType>WinExe</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FrameworkToolsPath Condition="'$(FrameworkToolsPath)' == ''">$(MSBuildToolsPath)</FrameworkToolsPath>
+    <OutputPath>$(MSBuildProjectDirectory)\bin\$(Configuration)\</OutputPath>
+    <!-- The original csc command did not enable optimization. Preserve that default. -->
+    <Optimize Condition="'$(Optimize)' == ''">false</Optimize>
+    <DebugSymbols Condition="'$(Configuration)' == 'Debug'">true</DebugSymbols>
+    <DebugSymbols Condition="'$(DebugSymbols)' == ''">false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src\Core\PixelArt.cs" />
+    <Compile Include="src\UI\ToolPanel.cs" />
+    <Compile Include="src\Editing\Selection.cs" />
+    <Compile Include="src\Editing\Workspace.cs" /><Compile Include="src\UI\Welcome.cs" /><Compile Include="src\UI\CursorOverlay.cs" />
+    <Compile Include="src\Persistence\Session.cs" />
+    <Compile Include="src\UI\ToolTile.cs" />
+    <Compile Include="src\UI\VisualTheme.cs" />
+    <Compile Include="src\UI\DialogTheme.cs" />
+    <Compile Include="src\UI\UIMotion.cs" />
+    <Compile Include="src\UI\UXPolish.cs" />
+    <Compile Include="src\Editing\Layers.cs" />
+    <Compile Include="src\Editing\History.cs" />
+    <Compile Include="src\UI\ToolCursors.cs" />
+    <Compile Include="src\Editing\ImageImport.cs" />
+    <Compile Include="src\Editing\CanvasSize.cs" />
+    <Compile Include="src\Tools\Precision.cs" />
+    <Compile Include="src\Persistence\SymmetrySave.cs" />
+    <Compile Include="src\Editing\AxesExport.cs" />
+    <Compile Include="src\UI\UICommands.cs" />
+    <Compile Include="src\UI\UIWorkspace.cs" />
+    <Compile Include="src\UI\UILayout.cs" />
+    <Compile Include="src\UI\DockLayout.cs" />
+    <Compile Include="tests\UITests.cs" /><Compile Include="tests\WelcomeTests.cs" /><Compile Include="tests\CursorOverlayTests.cs" />
+    <Compile Include="tests\MotionTests.cs" />
+    <Compile Include="tests\UXTests.cs" />
+    <Compile Include="src\Tools\QuickTools.cs" />
+    <Compile Include="src\Tools\PencilTips.cs" />
+    <Compile Include="tests\PencilTipTests.cs" />
+    <Compile Include="src\Editing\Shadow.cs" />
+    <Compile Include="src\Help\HelpCenter.cs" />
+    <Compile Include="src\Help\HelpContent.cs" />
+    <Compile Include="src\Tools\MagicWand.cs" />
+    <Compile Include="tests\MagicWandTests.cs" />
+    <Compile Include="src\Persistence\Persistence.cs" />
+    <Compile Include="tests\PersistenceTests.cs" />
+    <Compile Include="tests\TestArtifacts.cs" />
+    <Compile Include="tests\HistoryDiagnostics.cs" />
+    <Compile Include="tests\HistorySafetyTests.cs" />
+    <Compile Include="tests\PropertyHistoryTests.cs" />
+    <Compile Include="tests\AutoSaveDiagnostics.cs" />
+    <Reference Include="$(FrameworkToolsPath)\System.Drawing.dll" />
+    <Reference Include="$(FrameworkToolsPath)\System.Windows.Forms.dll" />
+    <Reference Include="$(FrameworkToolsPath)\System.Xml.dll" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="assets\aropix-logo.png"><LogicalName>Aropix.Logo</LogicalName></EmbeddedResource></ItemGroup><UsingTask TaskName="Microsoft.Build.Tasks.Csc" AssemblyFile="$(FrameworkToolsPath)\Microsoft.Build.Tasks.v4.0.dll" />
+  <Target Name="Build" Inputs="@(Compile);@(EmbeddedResource);$(ApplicationIcon);$(MSBuildProjectFullPath)" Outputs="$(OutputPath)$(AssemblyName).exe">
+    <Error Condition="'$(Configuration)' != 'Release' And '$(Configuration)' != 'Debug'" Text="Use Configuration=Release o Debug." />
+    <Error Condition="!Exists('$(FrameworkToolsPath)\csc.exe')" Text="No se encontro el compilador de .NET Framework." />
+    <MakeDir Directories="$(OutputPath)" />
+    <Csc Resources="@(EmbeddedResource)" Win32Icon="$(ApplicationIcon)" Sources="@(Compile)" References="@(Reference)" OutputAssembly="$(OutputPath)$(AssemblyName).exe" TargetType="winexe" Platform="$(PlatformTarget)" Optimize="$(Optimize)" EmitDebugInformation="$(DebugSymbols)" ToolPath="$(FrameworkToolsPath)" ToolExe="csc.exe" />
+    <Message Importance="high" Text="Compilado: $(OutputPath)$(AssemblyName).exe" />
+  </Target>
+  <Target Name="Clean">
+    <Delete Files="$(OutputPath)$(AssemblyName).exe;$(OutputPath)$(AssemblyName).pdb" />
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+</Project>

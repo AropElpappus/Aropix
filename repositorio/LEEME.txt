@@ -1,0 +1,13 @@
+﻿AROPIX — Editor de Pixel Art
+
+Código abierto bajo GNU GPL versión 3 únicamente (GPL-3.0-only).
+Consulta LICENSE para permisos, condiciones y ausencia de garantía.
+Se permiten modificaciones manuales o con IA y distribución comercial bajo GPLv3.
+
+Compilar: scripts\compilar.cmd
+Ejecutar: bin\Release\PixelArt.exe
+Requiere Windows y .NET Framework; consulta README.md.
+
+El Centro de Ayuda está disponible dentro del programa.
+Preferencias y sesiones viven en LocalAppData\Aropix; no las compartas.
+Los dibujos creados con Aropix no quedan automáticamente sujetos a GPL.

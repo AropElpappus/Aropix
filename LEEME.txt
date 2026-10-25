@@ -1,0 +1,17 @@
+﻿AROPIX — Archivos para publicar
+
+repositorio/
+Sube SU CONTENIDO a la raíz del repositorio GitHub Aropix.
+Incluye los archivos .gitignore y .editorconfig.
+Contiene el código, recursos, pruebas, scripts, documentación y licencia GPLv3.
+
+ descarga/
+Contiene Aropix-Windows.zip, preparado para quienes solo quieren usar el programa.
+El ZIP incluye PixelArt.exe, instrucciones, licencia y el código correspondiente.
+Extráelo por completo y abre PixelArt.exe dentro de Aropix-Distribucion.
+Puedes compartir el ZIP directamente o adjuntarlo como descarga de una Release.
+
+No subas la carpeta Aropix-Publicacion entera al repositorio: cada subcarpeta
+cumple una función distinta. Ninguna incluye sesiones o dibujos personales.
+Las carpetas anteriores se conservan. Esta es una copia puntual: futuras
+modificaciones del proyecto no actualizan automáticamente estos archivos.
